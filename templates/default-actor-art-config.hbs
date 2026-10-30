@@ -1,0 +1,37 @@
+<section class="lex-default-artwork">
+  <p class="hint">These settings apply only to actors created after saving. Existing actors and placed tokens keep their current artwork.</p>
+  {{#each types as |type|}}
+  <fieldset class="actor-type-card">
+    <legend>{{type.label}}</legend>
+    <div class="artwork-parts">
+      {{#each type.parts as |part|}}
+      <div class="artwork-field">
+        <div class="artwork-heading">
+          <strong>{{part.label}}</strong>
+          {{#if part.hasModuleDefault}}
+          <label class="checkbox">
+            <input type="checkbox" name="{{part.useDefaultKey}}" data-action="toggleModuleDefault" {{checked part.useDefault}}>
+            Use Lex Default
+          </label>
+          {{else}}
+          <span class="hint">No module default</span>
+          {{/if}}
+        </div>
+        <div class="artwork-control">
+          {{#if part.hasModuleDefault}}
+          <img class="artwork-preview" src="{{part.moduleDefault}}" alt="{{part.label}} module default">
+          {{/if}}
+          <input type="text" name="{{part.pathKey}}" value="{{part.customPath}}" placeholder="{{#if part.useDefault}}Using Lex Default{{else}}System default{{/if}}" {{#if part.useDefault}}disabled{{/if}}>
+          <button type="button" class="file-picker" data-action="browseFile" data-target="{{part.pathKey}}" data-type="image" aria-label="Choose {{part.label}} image" {{#if part.useDefault}}disabled{{/if}}>
+            <i class="fa-solid fa-file-image" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+      {{/each}}
+    </div>
+  </fieldset>
+  {{/each}}
+  <footer class="form-footer">
+    <button type="submit"><i class="fa-solid fa-floppy-disk" aria-hidden="true"></i> Save Artwork Defaults</button>
+  </footer>
+</section>
